@@ -1,4 +1,4 @@
-# redact-pii-light
+# @lmpm/redact-pii-light
 
 > This package is a fork of [redact-pii](https://www.npmjs.com/package/redact-pii) with `@google-cloud/dlp` in peer dependencies. More details can be [found here](https://github.com/solvvy/redact-pii/pull/25).
 
@@ -12,7 +12,7 @@ It is written in TypeScript and compiles to ES2017. The library makes use of `as
 ### Simple example (synchronous API)
 
 ```
-npm install redact-pii-light
+npm install @lmpm/redact-pii-light
 ```
 
 ```js
@@ -155,19 +155,19 @@ const redactor = new SyncRedactor({
 
 ### Use Google Data Loss Prevention
 
-[Google Data Loss Prevention (DLP)](https://cloud.google.com/dlp/) has an extensive rule set to identify and redact PII that goes beyond just simple regex patterns. Consider using DLP in-addition to the built-in patterns of redact-pii-light for high value / sensitive data applications.
-Also we strongly advice on using DLP if you have to redact non-english data since redact-pii-light's built-in patterns cover mostly US english patterns only and have no support for non-latin characters, whereas DLP has extensive support for international IDs, Chinese and Korean characters etc..
-`redact-pii-light` provides a small wrapper `GoogleDLPRedactor` around DLP that can be used seperately or in conjunction with redact-pii-light's built-in patterns.
-Note that Google Cloud DLP already also provides a node.js library (https://www.npmjs.com/package/@google-cloud/dlp) that can be used directly to redact data. You have to decide yourself if you want to use the `GoogleDLPRedactor` wrapper or `@google-cloud/dlp` directly. The main differentiators of using `redact-pii-light` / `GoogleDLPRedactor` are:
+[Google Data Loss Prevention (DLP)](https://cloud.google.com/dlp/) has an extensive rule set to identify and redact PII that goes beyond just simple regex patterns. Consider using DLP in-addition to the built-in patterns of `@lmpm/redact-pii-light` for high value / sensitive data applications.
+Also we strongly advice on using DLP if you have to redact non-english data since `@lmpm/redact-pii-light`'s built-in patterns cover mostly US english patterns only and have no support for non-latin characters, whereas DLP has extensive support for international IDs, Chinese and Korean characters etc..
+`@lmpm/redact-pii-light` provides a small wrapper `GoogleDLPRedactor` around DLP that can be used seperately or in conjunction with `@lmpm/redact-pii-light`'s built-in patterns.
+Note that Google Cloud DLP already also provides a node.js library (https://www.npmjs.com/package/@google-cloud/dlp) that can be used directly to redact data. You have to decide yourself if you want to use the `GoogleDLPRedactor` wrapper or `@google-cloud/dlp` directly. The main differentiators of using `@lmpm/redact-pii-light` / `GoogleDLPRedactor` are:
 
 - `GoogleDLPRedactor` already instantiates `@google-cloud/dlp` with a bunch of sane defaults and infoTypes
-- redact-pii-light has a bunch of built-in patterns which can run in addition to DLP infoTypes
-- it is easy to add custom patterns or rules to redact-pii-light
-- `GoogleDLPRedactor` uses the `.inspectContent` instead of `.deidentifyContent` method of `@google-cloud/dlp` which has a pricing advantage for large scale redaction scenarios since you will be only charged "Inspection Units" and no additional "Transformation Units" (see https://cloud.google.com/dlp/pricing) . redact-pii-light only uses DLP to `identify` PII but does the replacement `transformation` by itself which saves you some 💰💰💰.
+- `@lmpm/redact-pii-light` has a bunch of built-in patterns which can run in addition to DLP infoTypes
+- it is easy to add custom patterns or rules to `@lmpm/redact-pii-light`
+- `GoogleDLPRedactor` uses the `.inspectContent` instead of `.deidentifyContent` method of `@google-cloud/dlp` which has a pricing advantage for large scale redaction scenarios since you will be only charged "Inspection Units" and no additional "Transformation Units" (see https://cloud.google.com/dlp/pricing) . `@lmpm/redact-pii-light` only uses DLP to `identify` PII but does the replacement `transformation` by itself which saves you some 💰💰💰.
 
 In order to use Google Data Loss Prevention you must install the peer dependency yourself with `npm install --save @google-cloud/dlp` since we are no longer bundling it with this package.
 
-#### Use Google Data Loss Prevention only (this won't make use of redact-pii-light's built-in regex patterns)
+#### Use Google Data Loss Prevention only (this won't make use of `@lmpm/redact-pii-light`'s built-in regex patterns)
 
 1. Prequesites:
    You have to have a Google Cloud Project with DLP enabled and you need a _serviceaccount key json-file_ for a service account with the `serviceusage.services.use` permission or `roles/dlp.user` role. For more detailed steps on how to get a valid service account key follow the steps here: https://github.com/googleapis/nodejs-dlp#before-you-begin
@@ -178,7 +178,7 @@ In order to use Google Data Loss Prevention you must install the peer dependency
 3. Use redact pii
 
 ```js
-const { GoogleDLPRedactor } = require('redact-pii-light/lib/custom/GoogleDLPRedactor');
+const { GoogleDLPRedactor } = require('@lmpm/redact-pii-light/lib/custom/GoogleDLPRedactor');
 
 const redactor = new GoogleDLPRedactor();
 
@@ -191,11 +191,11 @@ redactor.redactAsync('I live at 123 Park Ave Apt 123 New York City, NY 10002').t
 #### Use Google DLP AND built-in patterns AND a custom pattern
 
 You can create an `AsyncRedactor` and add a `GoogleDLPRedactor` as custom redactor to the `AsyncRedactor`.
-That way you are combining redact-pii-light's built-in patterns with Google DLP. The example below additionally adds a custom regexp pattern.
+That way you are combining `@lmpm/redact-pii-light`'s built-in patterns with Google DLP. The example below additionally adds a custom regexp pattern.
 
 ```js
 const { AsyncRedactor } = require('@lmpm/redact-pii-light');
-const { GoogleDLPRedactor } = require('redact-pii-light/lib/custom/GoogleDLPRedactor');
+const { GoogleDLPRedactor } = require('@lmpm/redact-pii-light/lib/custom/GoogleDLPRedactor');
 
 const redactor = new AsyncRedactor({
   customRedactors: {
