@@ -16,7 +16,7 @@ npm install redact-pii-light
 ```
 
 ```js
-const { SyncRedactor } = require('redact-pii-light');
+const { SyncRedactor } = require('@lmpm/redact-pii-light');
 const redactor = new SyncRedactor();
 const redactedText = redactor.redact('Hi David Johnson, Please give me a call at 555-555-5555');
 // Hi NAME, Please give me a call at PHONE_NUMBER
@@ -26,7 +26,7 @@ console.log(redactedText);
 ### Simple example (asynchronous / promise-based API)
 
 ```js
-const { AsyncRedactor } = require('redact-pii-light');
+const { AsyncRedactor } = require('@lmpm/redact-pii-light');
 const redactor = new AsyncRedactor();
 redactor.redactAsync('Hi David Johnson, Please give me a call at 555-555-5555').then(redactedText => {
   // Hi NAME, Please give me a call at PHONE_NUMBER
@@ -62,7 +62,7 @@ redactor.redactAsync('Hi David Johnson, Please give me a call at 555-555-5555').
 ### Customize replacement values
 
 ```js
-const { SyncRedactor } = require('redact-pii-light');
+const { SyncRedactor } = require('@lmpm/redact-pii-light');
 
 // use a single replacement value for all built-in patterns found.
 const redactor = new SyncRedactor({ globalReplaceWith: 'TOP_SECRET' });
@@ -87,7 +87,7 @@ redactor.redact('Dear David Johnson');
 Note that the order of redaction rules matters, therefore you have to decide whether you want your custom redaction rules to run `before` or `after` the built-in ones. Generally it's better to put very specialized patterns or functions `before` the built-in ones and more broad / general ones `after`.
 
 ```js
-const { SyncRedactor } = require('redact-pii-light');
+const { SyncRedactor } = require('@lmpm/redact-pii-light');
 
 // add a custom regexp pattern
 const redactor = new SyncRedactor({
@@ -194,7 +194,7 @@ You can create an `AsyncRedactor` and add a `GoogleDLPRedactor` as custom redact
 That way you are combining redact-pii-light's built-in patterns with Google DLP. The example below additionally adds a custom regexp pattern.
 
 ```js
-const { AsyncRedactor } = require('redact-pii-light');
+const { AsyncRedactor } = require('@lmpm/redact-pii-light');
 const { GoogleDLPRedactor } = require('redact-pii-light/lib/custom/GoogleDLPRedactor');
 
 const redactor = new AsyncRedactor({

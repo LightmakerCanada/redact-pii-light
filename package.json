@@ -1,5 +1,5 @@
 {
-  "name": "@libretto/redact-pii-light",
+  "name": "@lmpm/redact-pii-light",
   "version": "1.0.1",
   "description": "Remove personally identifiable information from text.",
   "main": "lib/index.js",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/libretto-ai/redact-pii-light.git"
+    "url": "https://github.com/LightmakerCanada/redact-pii-light.git"
   },
   "author": "tHBp <thehalfbloodprince.github@gmail.com>",
   "license": "MIT",
