@@ -24,7 +24,7 @@
   "author": "tHBp <thehalfbloodprince.github@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.23"
   },
   "peerDependencies": {
     "@google-cloud/dlp": "^5.8.0"
